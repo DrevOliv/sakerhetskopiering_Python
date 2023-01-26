@@ -1,0 +1,45 @@
+#!/bin/bash
+
+if [ "$EUID" -ne 0 ]
+  then echo "Please run as sudo"
+  exit
+fi
+
+echo "Starting"
+
+GREEN='\033[0;32m'
+NC='\033[0m'
+
+pip3 install flask
+
+#echo "$USER"
+echo "Flask Installed"
+
+sed -i -e 's/CHANGE/oliver/g' ./installation/Python/Sakerhetskopiering
+
+echo "Changeed to username"
+
+cp ./installation/Python/Sakerhetskopiering /usr/sbin/    #/usr/sbin/Sakerhetskopiering
+
+echo "Flyttade filen"
+
+cp ./installation/service/sakerhetskop.service /usr/lib/systemd/system/     #/usr/lib/systemd/system/sakerhetskop.service
+
+echo "Flyttade filen"
+
+mkdir /home/$SUDO_USER/Documents/Sakerhetskopiering_av_server
+
+echo "Skapade filen dar kopiorna sparas"
+
+systemctl daemon-reload
+
+echo "Reload daemon"
+
+systemctl start sakerhetskop.service
+
+echo "Server started"
+
+echo "${GREEN}All done and ready to use"
+echo "remove instalation folder${NC}"
+
+rm -- "$0"

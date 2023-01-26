@@ -1,0 +1,42 @@
+#!/usr/bin/python3
+
+import flask
+import zipfile
+import os
+import logging
+import datetime
+
+logging.basicConfig(filename='/tmp/SakerhetskopieringLog.log', level=logging.DEBUG)
+
+app = flask.Flask(__name__)
+
+@app.route("/snedfile", methods=["POST"])
+def Read():
+    
+    date = datetime.datetime.now()
+
+    Bytes = flask.request.data
+
+    filname = "temp"
+
+    with open(f"/home/CHANGE/Documents/Sakerhetskopiering_av_server/{filname}.zip", "wb") as f:
+        f.write(Bytes)    
+
+    with zipfile.ZipFile(f"/home/CHANGE/Documents/Sakerhetskopiering_av_server/{filname}.zip", 'r') as zip_ref:
+        zip_ref.extractall(f"/home/CHANGE/Documents/Sakerhetskopiering_av_server/{date.year}/{date.month}/{date.day}_{int(date.strftime('%H'))+1}:{date.strftime('%M')}/")
+
+    os.remove(f"/home/CHANGE/Documents/Sakerhetskopiering_av_server/{filname}.zip")
+
+    return "Funkare"
+
+@app.route("/", methods=["GET"])
+def RETURN():
+
+    return """<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Document</title></head><body>
+    <h1>Server is up and accepting requests</h1></body></html>"""
+
+
+if __name__ == "__main__":
+
+    app.run(host = "0.0.0.0")
