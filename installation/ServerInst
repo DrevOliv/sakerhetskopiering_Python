@@ -15,7 +15,7 @@ pip3 install flask
 #echo "$USER"
 echo "Flask Installed"
 
-sed -i -e 's/CHANGE/oliver/g' ./installation/Python/Sakerhetskopiering
+sed -i -e "s/CHANGE/$SUDO_USER/g" ./installation/Python/Sakerhetskopiering
 
 echo "Changeed to username"
 
