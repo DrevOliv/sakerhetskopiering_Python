@@ -10,7 +10,7 @@ echo "Starting"
 GREEN='\033[0;32m'
 NC='\033[0m'
 
-pip3 install flask
+  pip3 install flask
 
 #echo "$USER"
 echo "Flask Installed"
