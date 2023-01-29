@@ -24,13 +24,15 @@ rm $filedir/Python/InstallPackege.py
 
 echo "Flask Installed"
 
-sed -i -e "s/CHANGE/$SUDO_USER/g" $filedir/Python/Sakerhetskopiering
+#sed -i -e "s/CHANGE/$SUDO_USER/g" $filedir/Python/Sakerhetskopiering
+
+while IFS='' read -r a; do
+    echo "${a//CHANGE/$SUDO_USER}"
+done < $filedir/Python/Sakerhetskopiering > $filedir/Python/Sakerhetskopiering.t
+mv $filedir/Python/Sakerhetskopiering{.t,}
 
 echo "Changeed to username"
 
-sed -i -e "s/PYTHON/$Python/g" $filedir/service/sakerhetskop.service
-
-echo "Changed to Python"
 
 cp $filedir/Python/Sakerhetskopiering /usr/sbin/    #/usr/sbin/Sakerhetskopiering
 
