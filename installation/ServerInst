@@ -10,14 +10,23 @@ echo "Starting"
 GREEN='\033[0;32m'
 NC='\033[0m'
 
+if [ $(python3 ./InstallPackege.py) == 0 ]; 
+  then echo "Flask needs install"
   pip3 install flask
 
-#echo "$USER"
+fi
+
+rm ./Python/InstallPackege.py
+
 echo "Flask Installed"
 
 sed -i -e "s/CHANGE/$SUDO_USER/g" ./installation/Python/Sakerhetskopiering
 
 echo "Changeed to username"
+
+sed -i -e "s/PYTHON/$(which python3)/g" ./installation/service/sakerhetskop.service
+
+echo "Changed to Python"
 
 cp ./installation/Python/Sakerhetskopiering /usr/sbin/    #/usr/sbin/Sakerhetskopiering
 
