@@ -19,13 +19,8 @@ def Read():
 
     filname = "temp"
 
-    with open(f"/home/CHANGE/Documents/Sakerhetskopiering_av_server/{filname}.zip", "wb") as f:
+    with open(f"/home/CHANGE/Documents/Sakerhetskopiering_av_server/{date.year}/{date.month}/{date.day}_{int(date.strftime('%H'))+1}:{date.strftime('%M')}/{filname}.zip", "wb") as f:
         f.write(Bytes)    
-
-    with zipfile.ZipFile(f"/home/CHANGE/Documents/Sakerhetskopiering_av_server/{filname}.zip", 'r') as zip_ref:
-        zip_ref.extractall(f"/home/CHANGE/Documents/Sakerhetskopiering_av_server/{date.year}/{date.month}/{date.day}_{int(date.strftime('%H'))+1}:{date.strftime('%M')}/")
-
-    os.remove(f"/home/CHANGE/Documents/Sakerhetskopiering_av_server/{filname}.zip")
 
     return "Funkare"
 
