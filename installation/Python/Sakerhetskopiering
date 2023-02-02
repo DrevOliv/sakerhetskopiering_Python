@@ -19,7 +19,21 @@ def Read():
 
     filname = "temp"
 
-    with open(f"/home/CHANGE/Documents/Sakerhetskopiering_av_server/{date.year}/{date.month}/{date.day}_{int(date.strftime('%H'))+1}:{date.strftime('%M')}/{filname}.zip", "wb") as f:
+    month = date.strftime("%m")
+    year = date.strftime("%y")
+    date = date.strftime("%d")
+
+    datepath = f"/home/CHANGE/Documents/Sakerhetskopiering_av_server/{year}/{month}/"
+
+    datefilename = f"{date}.zip"
+
+    fullPath = f"{datepath}{datefilename}"
+
+    if not os.path.exists(datepath):
+        os.makedirs(datepath)
+
+
+    with open(fullPath, "wb") as f:
         f.write(Bytes)    
 
     return "Funkare"
